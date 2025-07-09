@@ -13,4 +13,4 @@ lib
 # misc
 .DS_Store
 
-./backend/uploads
+backend\uploads
