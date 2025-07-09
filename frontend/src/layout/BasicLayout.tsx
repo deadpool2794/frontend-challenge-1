@@ -3,7 +3,7 @@ import Header from "~/components/Header";
 
 export default function BasicLayout() {
   return (
-    <div className="h-screen w-full">
+    <div className="h-screen w-full ">
       <Header />
       <Outlet />
     </div>
