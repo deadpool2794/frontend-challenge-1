@@ -4,6 +4,7 @@ import NotFoundPage from "./pages/error/NotFound";
 import MainPage from "./pages/MainPage";
 import Login from "./components/Login";
 import FilePreviewPage from "./pages/FilePreviewPage";
+import MyFilesPage from "./pages/MyFilesPage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path:"/file_preview",
         element: <FilePreviewPage />
+      },
+      {
+        path:"/my_files",
+        element:<MyFilesPage />
       }
     ],
     errorElement: <NotFoundPage />,
