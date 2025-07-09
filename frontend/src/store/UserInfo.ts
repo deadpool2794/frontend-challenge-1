@@ -1,28 +1,28 @@
 import { makeAutoObservable } from "mobx";
 
 export interface User {
-    name : string
-    email : string
+    name : string;
+    email : string;
 }
 
 class UserInfo {
-    user : User |null = {name : "alim", email: "alim@dummy.com"}
+    user : User |null = null
     constructor(){
-        makeAutoObservable(this)
+        makeAutoObservable(this);
     }
 
     setUserInfo(user: User){
-        this.user = user
+        this.user = user;
     }
 
     clearUserInfo() {
-        this.user = null
+        this.user = null;
     }
 
     get isLoggedIn(): boolean{
-        return this.user !== null
+        return this.user !== null;
     }
 }
 
 const userStore = new UserInfo();
-export default userStore
+export default userStore;
