@@ -5,6 +5,7 @@ import { Button } from "@mantine/core";
 import useParsedCsvData from "~/hooks/useParsedCsvData";
 import userStore from "~/store/UserInfo";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const FilePreviewPage = () => {
   const { columnDefs, rowData } = useParsedCsvData();
@@ -47,10 +48,10 @@ const FilePreviewPage = () => {
         </div>
         <Button onClick={handleApprove}> Approve</Button>
       </div>
-      {uploadStatus === "uploading" && <p className="text-blue-500 mb-4">Uploading file...</p>}
-      {uploadStatus === "success" && <p className="text-green-600 mb-4">Uploaded file successfully!</p>}
-      {uploadStatus === "error" && <p className="text-red-500 mb-4">Upload failed. Please try again.</p>}
-      {rowData.length > 0 ? <AgGridReact rowData={rowData} columnDefs={columnDefs} pagination={true} paginationPageSize={20} domLayout="autoHeight" /> : <p>Empty File</p>}
+      {uploadStatus === "uploading" && <p className="text-sm text-blue-500 mb-4">Uploading file...</p>}
+      {uploadStatus === "success" && <p className="text-sm text-green-600 mb-4">Uploaded file successfully!</p>}
+      {uploadStatus === "error" && <p className="text-sm text-red-500 mb-4">Upload failed. Please try again.</p>}
+      {uploadStatus === "success" ? <Link to ="/" className="text-md text-blue-300">Upload More Files</Link> : (rowData.length > 0 ? <AgGridReact rowData={rowData} columnDefs={columnDefs} pagination={true} paginationPageSize={20} domLayout="autoHeight" /> : <p>Empty File</p>)}
     </div>
   );
 };
