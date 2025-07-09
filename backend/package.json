@@ -6,10 +6,12 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.13.2",
-    "hono": "^4.6.6"
+    "hono": "^4.6.6",
+    "papaparse": "^5.5.3"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
+    "@types/papaparse": "^5.3.16",
     "tsx": "^4.7.1"
   },
   "engines": {

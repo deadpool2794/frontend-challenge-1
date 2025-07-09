@@ -20,8 +20,16 @@ const FilePreviewPage = () => {
     setUploadStatus("uploading");
 
     try {
-        // send file to backend
+      const response = await fetch("http://localhost:8080/upload", {
+        method: "POST",
+        body: formData,
+      });
 
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
+
+      await response.text();
 
       setUploadStatus("success");
     } catch (error) {
