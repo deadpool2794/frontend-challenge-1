@@ -1,35 +1,13 @@
 import { Alert, Paper, Table } from "@mantine/core";
-import { useEffect, useState } from "react";
 import  FileRow  from "~/components/FileRow";
+import useUserFiles from "~/hooks/useUserFiles";
 import userStore from "~/store/UserInfo";
 
 
 
 const MyFilesPage = () => {
 
-    const [files, setFiles] = useState<File[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    const getUserFiles = async () => {
-        try {
-            const res = await fetch(
-                `http://localhost:8080/my_files?email=${encodeURIComponent(userStore.user?.email || "")}`
-            );
-            const data = await res.json();
-            setFiles(data || []);
-        } catch (err) {
-            console.error("Failed to fetch files", err);
-            setFiles([]);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    useEffect(() => {
-        getUserFiles();
-    }, [])
-
-
+    const { files, loading } = useUserFiles();
   return (
     <div className="py-20">
       <div className="flex items-center justify-between gap-12 px-[20%] py-6">
