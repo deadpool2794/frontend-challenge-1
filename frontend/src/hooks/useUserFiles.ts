@@ -16,9 +16,7 @@ const useUserFiles = () => {
   useEffect(() => {
     const getUserFiles = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:8080/my_files?email=${encodeURIComponent(email)}`
-        );
+        const res = await fetch(`http://localhost:8080/my_files?email=${encodeURIComponent(email)}`);
         const data = await res.json();
         setFiles(data || []);
       } catch (err) {

@@ -1,22 +1,14 @@
 import { Alert, Paper, Table } from "@mantine/core";
-import  FileRow  from "~/components/FileRow";
+import FileRow from "~/components/FileRow";
 import useUserFiles from "~/hooks/useUserFiles";
 import userStore from "~/store/UserInfo";
 
-
-
 const MyFilesPage = () => {
-
-    const { files, loading } = useUserFiles();
+  const { files, loading } = useUserFiles();
   return (
     <div className="py-20">
       <div className="flex items-center justify-between gap-12 px-[20%] py-6">
-        <img
-          src="https://my.clearesthealth.com/assets/ManReading-BFWcqFdd.jpg"
-          alt="Man reading"
-          className="rounded"
-          style={{ height: "350px" }}
-        />
+        <img src="https://my.clearesthealth.com/assets/ManReading-BFWcqFdd.jpg" alt="Man reading" className="rounded" style={{ height: "350px" }} />
         <div className="space-y-4 text-sm">
           <h2 className="text-xl font-semibold">Machine Readable Files</h2>
 
@@ -25,7 +17,8 @@ const MyFilesPage = () => {
           </Alert>
 
           <div>
-            A machine-readable file is defined as a digital representation of data or information in a file that can be imported or read by a computer system for further processing without human intervention, while ensuring no semantic meaning is lost.
+            A machine-readable file is defined as a digital representation of data or information in a file that can be imported or read by a computer system for further processing
+            without human intervention, while ensuring no semantic meaning is lost.
           </div>
 
           <div>
@@ -65,15 +58,12 @@ const MyFilesPage = () => {
                   </td>
                 </tr>
               ) : (
-                files.map((file) => (<FileRow file={file} email = {userStore.user.email} />
-
-                ))
+                files.map((file) => <FileRow file={file} email={userStore.user.email} />)
               )}
             </tbody>
           </Table>
         </Paper>
       </div>
-      
     </div>
   );
 };

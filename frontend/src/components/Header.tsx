@@ -6,11 +6,10 @@ import userStore from "~/store/UserInfo";
 const Header = () => {
   const navigate = useNavigate();
 
-
   const handleMyFiles = () => {
-    if(!userStore.isLoggedIn) return;
-    navigate("my_files")
-  }
+    if (!userStore.isLoggedIn) return;
+    navigate("my_files");
+  };
 
   const handleLogin = () => {
     if (!userStore.isLoggedIn) {
@@ -26,8 +25,10 @@ const Header = () => {
         ehs
       </Link>
       <div>
-      <Button variant="default" className = "mr-8" onClick = {handleMyFiles}>My Files</Button>
-      <Button onClick={handleLogin}>{userStore.isLoggedIn ? "Logout" : "Login"}</Button>
+        <Button variant="default" className="mr-8" onClick={handleMyFiles}>
+          My Files
+        </Button>
+        <Button onClick={handleLogin}>{userStore.isLoggedIn ? "Logout" : "Login"}</Button>
       </div>
     </div>
   );
