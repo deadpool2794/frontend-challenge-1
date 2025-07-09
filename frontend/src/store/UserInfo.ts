@@ -6,7 +6,7 @@ export interface User {
 }
 
 class UserInfo {
-  user: User | null = { name: "alim", email: "alim@ehs.com" };
+  user: User | null = { name: "test", email: "test@dummy.com" };
   constructor() {
     makeAutoObservable(this);
   }

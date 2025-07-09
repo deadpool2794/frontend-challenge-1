@@ -4,6 +4,10 @@ import { cors } from "hono/cors";
 import Papa from "papaparse";
 import transformCsvRowToSchema from "./utils/transformCsvRowToSchema.js";
 import storeLocal from "./utils/storeLocal.js";
+import path from "path";
+import { existsSync } from "fs";
+import fs from "fs/promises";
+
 
 interface ParsedRow {
   Plan?: string;
@@ -50,6 +54,68 @@ app.post("/upload", async (c) => {
   
 
   return c.text("File Upload Successful", 200);
+});
+
+app.get("/my_files", async (c) => {
+  const email = c.req.query("email");
+
+  if (!email) {
+    return c.text("Missing email query parameter", 400);
+  }
+
+  const userDir = path.join("uploads", email);
+
+  if (!existsSync(userDir)) {
+    return c.json([], 200); // No files yet for this user
+  }
+
+  try {
+    const files = await fs.readdir(userDir);
+
+    const fileData = await Promise.all(
+      files.map(async (file) => {
+        const filePath = path.join(userDir, file);
+        const stat = await fs.stat(filePath);
+
+        return {
+          name: file,
+          size: stat.size,
+          createdAt: stat.birthtime,
+        };
+      })
+    );
+
+    return c.json(fileData, 200);
+  } catch (err) {
+    console.error("Error reading files:", err);
+    return c.text("Failed to read user files", 500);
+  }
+});
+
+app.get("/download", async (c) => {
+  const email = c.req.query("email");
+  const file = c.req.query("file");
+
+  if (!email || !file) {
+    return c.text("Missing email or file query parameter", 400);
+  }
+
+  const filePath = path.join("uploads", email, file);
+
+  try {
+    const content = await fs.readFile(filePath);
+    const fileName = path.basename(filePath);
+
+    return new Response(content, {
+      headers: {
+        "Content-Type": "application/json",
+        "Content-Disposition": `attachment; filename="${fileName}"`,
+      },
+    });
+  } catch (err) {
+    console.error("Download failed:", err);
+    return c.text("File not found", 404);
+  }
 });
 
 

@@ -1,14 +1,28 @@
 import { Alert, Paper, Table } from "@mantine/core";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import  FileRow  from "~/components/FileRow";
 import userStore from "~/store/UserInfo";
+
 
 
 const MyFilesPage = () => {
 
+    const [files, setFiles] = useState<File[]>([]);
+    const [loading, setLoading] = useState(true);
+
     const getUserFiles = async () => {
-        const res = await fetch(`http://localhost:8080/my_files?email=${encodeURIComponent(userStore.user?.email || "")}`);
-        const data = await res.json();
-        console.log(data);
+        try {
+            const res = await fetch(
+                `http://localhost:8080/my_files?email=${encodeURIComponent(userStore.user?.email || "")}`
+            );
+            const data = await res.json();
+            setFiles(data || []);
+        } catch (err) {
+            console.error("Failed to fetch files", err);
+            setFiles([]);
+        } finally {
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -50,24 +64,38 @@ const MyFilesPage = () => {
           </div>
         </div>
       </div>
-
       <div className="bg-gray-100 px-[20%] py-12">
         <Paper shadow="xs" radius="md" p="md">
           <Table>
             <thead>
               <tr>
-                <th>File Name</th>
-                <th>In/Out Network</th>
+                <th className="text-left">File Name</th>
+                <th>Download</th>
               </tr>
             </thead>
-            <tbody className="text-center">
-             <tr>
-                <td colSpan={2} className="text-center text-gray-500 pt-4 pb-2">No files to display</td>
-            </tr>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan={2} className="text-center text-gray-500 py-4">
+                    Loading...
+                  </td>
+                </tr>
+              ) : files.length === 0 ? (
+                <tr>
+                  <td colSpan={2} className="text-center text-gray-500 py-4">
+                    No files to display
+                  </td>
+                </tr>
+              ) : (
+                files.map((file) => (<FileRow file={file} email = {userStore.user.email} />
+
+                ))
+              )}
             </tbody>
           </Table>
         </Paper>
       </div>
+      
     </div>
   );
 };
