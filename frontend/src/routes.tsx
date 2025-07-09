@@ -3,6 +3,7 @@ import BasicLayout from "./layout/BasicLayout";
 import NotFoundPage from "./pages/error/NotFound";
 import MainPage from "./pages/MainPage";
 import Login from "./components/Login";
+import FilePreviewPage from "./pages/FilePreviewPage";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />
+      },
+      {
+        path:"/file",
+        element: <FilePreviewPage />
       }
     ],
     errorElement: <NotFoundPage />,

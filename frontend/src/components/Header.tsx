@@ -6,7 +6,6 @@ import userStore from "~/store/UserInfo";
 const Header = () => {
     const navigate = useNavigate()
     const handleLogin = () => {
-        console.log(!userStore.isLoggedIn)
         if(!userStore.isLoggedIn){
             navigate("/login")
         }
