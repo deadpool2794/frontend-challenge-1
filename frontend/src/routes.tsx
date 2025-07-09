@@ -18,7 +18,7 @@ const router = createBrowserRouter([
         element: <Login />
       },
       {
-        path:"/file",
+        path:"/file_preview",
         element: <FilePreviewPage />
       }
     ],

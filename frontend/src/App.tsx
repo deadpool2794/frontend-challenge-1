@@ -1,6 +1,9 @@
 import { createTheme, MantineProvider } from "@mantine/core";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes";
+import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
+
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 export default function App() {
   return (
